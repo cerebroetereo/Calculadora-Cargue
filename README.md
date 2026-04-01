@@ -2,7 +2,7 @@
 
 Herramienta web para el cálculo de carga y planificación de composiciones en el transporte ferroviario de perfiles de acero (carriles).
 
-**[→ Abrir la calculadora](https://tu-usuario.github.io/rail-load-calculator/)**
+**[→https://cerebroetereo.github.io/Calculadora-Cargue/)**
 
 ---
 
@@ -33,7 +33,7 @@ La calculadora incluye una base de datos de **más de 40 perfiles de carril** co
 
 Accede directamente desde el navegador sin instalar nada:
 
-**https://tu-usuario.github.io/rail-load-calculator/**
+**https://cerebroetereo.github.io/Calculadora-Cargue/**
 
 ### Opción 2: Local
 
@@ -105,5 +105,5 @@ MIT License — consulta el archivo [LICENSE](LICENSE) para más detalles.
 ---
 
 <p align="center">
-  <sub>Hecho con 🧡 para la gente de expediciones</sub>
+  <sub>Hecho con 🧡 para la gente de expediciones y supply chain </sub>
 </p>
