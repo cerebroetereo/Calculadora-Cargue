@@ -7,13 +7,10 @@
 <meta name="description" content="Herramienta de cálculo de carga para transporte ferroviario de perfiles de acero. Calcula unidades, pesos y planifica composiciones de tren.">
 <meta name="author" content="Rubén Prendes">
 <meta name="theme-color" content="#f47d30">
-<meta property="og:title" content="Calculadora de Carga Ferroviaria">
-<meta property="og:description" content="Calcula cargas ferroviarias de perfiles de acero: unidades por peso máximo, peso por unidades y planificación de composiciones.">
-<meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚂</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 /* ─── Reset & Variables ─── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,8 +30,8 @@
   --bg: #ffffff;
   --bg-raised: #fafaf9;
   --bg-sunken: #f3f3f1;
-  --border: rgba(0, 0, 0, 0.08);
-  --border-strong: rgba(0, 0, 0, 0.18);
+  --border: rgba(0,0,0,0.08);
+  --border-strong: rgba(0,0,0,0.18);
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
   --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
   --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
@@ -43,62 +40,30 @@
   --text-secondary: #6b6b6b;
   --text-muted: #a0a0a0;
 
-  --success-bg: #eaf3de;
-  --success-text: #3b6d11;
-  --success-border: #97c459;
-  --warn-bg: #faeeda;
-  --warn-text: #854f0b;
-  --warn-border: #ef9f27;
-  --info-bg: #e6f1fb;
-  --info-text: #185fa5;
-  --info-border: #85b7eb;
-  --error-bg: #fce8e8;
-  --error-text: #b91c1c;
-  --error-border: #f5a3a3;
+  --success-bg: #eaf3de; --success-text: #3b6d11; --success-border: #97c459;
+  --warn-bg: #faeeda;    --warn-text: #854f0b;    --warn-border: #ef9f27;
+  --info-bg: #e6f1fb;    --info-text: #185fa5;    --info-border: #85b7eb;
+  --error-bg: #fce8e8;   --error-text: #b91c1c;   --error-border: #f5a3a3;
 
-  --radius: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 18px;
+  --radius: 10px; --radius-lg: 14px; --radius-xl: 18px;
   --font: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --orange-soft: #2e1a08;
-    --orange-border: #8a4a12;
-    --orange-deep: #f9a870;
-    --orange-glow: rgba(244, 125, 48, 0.08);
-
-    --steel-soft: #2a2b2c;
-    --steel-border: #555658;
-    --steel-deep: #c8cacc;
-
-    --bg: #191919;
-    --bg-raised: #222222;
-    --bg-sunken: #141414;
-    --border: rgba(255, 255, 255, 0.08);
-    --border-strong: rgba(255, 255, 255, 0.16);
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+    --orange-soft: #2e1a08; --orange-border: #8a4a12; --orange-deep: #f9a870;
+    --orange-glow: rgba(244,125,48,0.08);
+    --steel-soft: #2a2b2c; --steel-border: #555658; --steel-deep: #c8cacc;
+    --bg: #191919; --bg-raised: #222222; --bg-sunken: #141414;
+    --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.16);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.2); --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
     --shadow-lg: 0 8px 30px rgba(0,0,0,0.4);
-
-    --text: #f0f0f0;
-    --text-secondary: #999;
-    --text-muted: #555;
-
-    --success-bg: #173404;
-    --success-text: #c0dd97;
-    --success-border: #3b6d11;
-    --warn-bg: #412402;
-    --warn-text: #fac775;
-    --warn-border: #854f0b;
-    --info-bg: #042c53;
-    --info-text: #85b7eb;
-    --info-border: #185fa5;
-    --error-bg: #3b0a0a;
-    --error-text: #f5a3a3;
-    --error-border: #7f1d1d;
+    --text: #f0f0f0; --text-secondary: #999; --text-muted: #555;
+    --success-bg: #173404; --success-text: #c0dd97; --success-border: #3b6d11;
+    --warn-bg: #412402;   --warn-text: #fac775;    --warn-border: #854f0b;
+    --info-bg: #042c53;   --info-text: #85b7eb;    --info-border: #185fa5;
+    --error-bg: #3b0a0a;  --error-text: #f5a3a3;  --error-border: #7f1d1d;
   }
 }
 
@@ -107,477 +72,335 @@ body {
   font-family: var(--font);
   background: var(--bg-sunken);
   color: var(--text);
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100vh; min-height: 100dvh;
   padding: 1rem;
   -webkit-font-smoothing: antialiased;
 }
-
-.app {
-  max-width: 540px;
-  margin: 0 auto;
-  padding-bottom: 2rem;
-}
+.app { max-width: 560px; margin: 0 auto; padding-bottom: 2rem; }
 
 /* ─── Header ─── */
-.header {
-  padding: 1.5rem 0 0.5rem;
-  margin-bottom: 1.5rem;
-}
+.header { padding: 1.5rem 0 0.5rem; margin-bottom: 1.5rem; }
 .header-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--orange);
-  background: var(--orange-soft);
-  border: 1px solid var(--orange-border);
-  padding: 4px 10px;
-  border-radius: 20px;
-  margin-bottom: 12px;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; color: var(--orange);
+  background: var(--orange-soft); border: 1px solid var(--orange-border);
+  padding: 4px 10px; border-radius: 20px; margin-bottom: 12px;
+  letter-spacing: 0.03em; text-transform: uppercase;
 }
-.header h1 {
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-}
-.header p {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-top: 4px;
-  line-height: 1.4;
-}
+.header h1 { font-size: 26px; font-weight: 700; color: var(--text); line-height: 1.2; letter-spacing: -0.02em; }
+.header p  { font-size: 14px; color: var(--text-secondary); margin-top: 4px; line-height: 1.4; }
 
 /* ─── Tabs ─── */
 .tabs {
-  display: flex;
-  background: var(--bg);
-  border-radius: var(--radius-lg);
-  padding: 4px;
-  margin-bottom: 1.5rem;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border);
+  display: flex; background: var(--bg); border-radius: var(--radius-lg);
+  padding: 4px; margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm); border: 1px solid var(--border);
 }
 .tab {
-  flex: 1;
-  padding: 10px 8px;
-  font-size: 13px;
-  font-weight: 600;
-  background: transparent;
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  color: var(--text-secondary);
-  transition: all 0.2s ease;
-  text-align: center;
-  font-family: var(--font);
+  flex: 1; padding: 10px 8px; font-size: 13px; font-weight: 600;
+  background: transparent; border: none; border-radius: var(--radius);
+  cursor: pointer; color: var(--text-secondary);
+  transition: all 0.2s ease; text-align: center; font-family: var(--font);
 }
-.tab.active {
-  color: #fff;
-  background: var(--orange);
-  box-shadow: 0 2px 8px rgba(244, 125, 48, 0.3);
-}
-.tab:hover:not(.active) {
-  color: var(--text);
-  background: var(--bg-sunken);
-}
+.tab.active { color: #fff; background: var(--orange); box-shadow: 0 2px 8px rgba(244,125,48,0.3); }
+.tab:hover:not(.active) { color: var(--text); background: var(--bg-sunken); }
 .pane { display: none; }
 .pane.active { display: block; }
 
 /* ─── Card ─── */
 .card {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem; box-shadow: var(--shadow-md);
+}
+
+/* ─── Form fields ─── */
+.field { margin-bottom: 1rem; }
+.field:last-child { margin-bottom: 0; }
+label {
+  display: block; font-size: 11.5px; font-weight: 600; color: var(--text-secondary);
+  margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em;
+}
+label .hint { font-weight: 400; color: var(--text-muted); text-transform: none; letter-spacing: normal; font-size: 10.5px; }
+input, select {
+  width: 100%; padding: 10px 12px; font-size: 15px;
+  border: 1.5px solid var(--border-strong); border-radius: var(--radius);
+  background: var(--bg); color: var(--text); font-family: var(--font);
+  outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+}
+input::placeholder { color: var(--text-muted); }
+input:focus, select:focus { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-glow); }
+select { cursor: pointer; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* ─── Mode toggle ─── */
+.mode-toggle { display: flex; gap: 10px; margin-bottom: 1.25rem; }
+.mode-btn {
+  flex: 1; padding: 11px 10px; font-size: 13px; font-weight: 600;
+  border-radius: var(--radius); cursor: pointer; line-height: 1.3;
+  transition: all 0.2s ease; font-family: var(--font);
+}
+.mode-btn.type-a { background: var(--orange-soft); color: var(--orange-deep); border: 1.5px solid var(--orange-border); }
+.mode-btn.type-a.active { background: var(--orange); color: #fff; border-color: var(--orange); box-shadow: 0 2px 8px rgba(244,125,48,0.25); }
+.mode-btn.type-b { background: var(--steel-soft); color: var(--steel-deep); border: 1.5px solid var(--steel-border); }
+.mode-btn.type-b.active { background: var(--steel); color: #fff; border-color: var(--steel); box-shadow: 0 2px 8px rgba(85,86,88,0.25); }
+
+/* ─── Package quick-pick ─── */
+.pkg-quick { display: flex; gap: 6px; align-items: stretch; }
+.pkg-pill {
+  flex: 1;
+  padding: 9px 4px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--bg-sunken);
+  color: var(--text-secondary);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: var(--font);
+  text-align: center;
+  line-height: 1;
+}
+.pkg-pill:hover { color: var(--text); border-color: var(--orange-border); }
+.pkg-pill.active {
+  background: var(--orange-soft);
+  color: var(--orange-deep);
+  border-color: var(--orange-border);
+}
+.pkg-input {
+  flex: 1.1;
+  padding: 8px 10px;
+  font-size: 13px;
+  text-align: center;
+  font-family: var(--mono);
+  font-weight: 600;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius);
+}
+
+/* ─── Buttons ─── */
+.btn-calc {
+  width: 100%; padding: 12px; font-size: 15px; font-weight: 700;
+  background: var(--orange); color: #fff; border: none; border-radius: var(--radius);
+  cursor: pointer; margin-bottom: 1rem; transition: all 0.15s ease;
+  font-family: var(--font); letter-spacing: 0.01em;
+}
+.btn-calc:hover { filter: brightness(1.06); box-shadow: 0 4px 14px rgba(244,125,48,0.3); }
+.btn-calc:active { transform: scale(0.99); filter: brightness(0.95); }
+.btn-secondary {
+  width: 100%; padding: 10px; font-size: 13px; font-weight: 600;
+  background: var(--bg); color: var(--text-secondary); border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius); cursor: pointer; transition: all 0.15s ease;
+  margin-top: 10px; font-family: var(--font);
+}
+.btn-secondary:hover { background: var(--bg-sunken); border-color: var(--orange-border); color: var(--text); }
+
+/* ─── Alerts ─── */
+.alert {
+  padding: 11px 14px; border-radius: var(--radius); font-size: 13px; line-height: 1.45;
+  margin-bottom: 1rem; display: none; font-weight: 500;
+}
+.alert.show { display: flex; align-items: flex-start; gap: 8px; }
+.alert-icon  { flex-shrink: 0; font-size: 15px; line-height: 1.3; }
+.alert.warn  { background: var(--warn-bg);  color: var(--warn-text);  border: 1px solid var(--warn-border); }
+.alert.ok    { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success-border); }
+.alert.info  { background: var(--info-bg);  color: var(--info-text);  border: 1px solid var(--info-border); }
+.alert.error { background: var(--error-bg); color: var(--error-text); border: 1px solid var(--error-border); }
+
+/* ─── Metrics ─── */
+.metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+.metric {
+  background: var(--bg); border-radius: var(--radius); padding: 1rem;
+  border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+}
+.metric .val { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.1; font-family: var(--mono); letter-spacing: -0.02em; }
+.metric .lbl { font-size: 10px; color: var(--text-secondary); margin-top: 5px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; }
+.metric.accent .val { color: var(--orange); }
+.metric.pkg { background: var(--orange-soft); border-color: var(--orange-border); }
+.metric.pkg .val { color: var(--orange-deep); }
+
+/* ════════════════════════════════════════════
+   DONUT CHART — Tab 1
+   ════════════════════════════════════════════ */
+.donut-wrap {
+  display: none;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   padding: 1.25rem 1.5rem;
   margin-bottom: 1rem;
   box-shadow: var(--shadow-md);
+  animation: fadeIn 0.35s ease;
 }
+.donut-wrap.show { display: flex; align-items: center; gap: 1.5rem; }
 
-/* ─── Form fields ─── */
-.field { margin-bottom: 1rem; }
-.field:last-child { margin-bottom: 0; }
-
-label {
-  display: block;
-  font-size: 11.5px;
+.donut-svg-wrap {
+  flex-shrink: 0;
+  width: 110px; height: 110px;
+  position: relative;
+}
+.donut-svg { width: 110px; height: 110px; transform: rotate(-90deg); }
+.donut-track {
+  fill: none;
+  stroke: var(--bg-sunken);
+  stroke-width: 14;
+}
+.donut-seg {
+  fill: none;
+  stroke-width: 14;
+  stroke-linecap: round;
+  stroke-dasharray: 251.2;
+  stroke-dashoffset: 251.2;
+  transition: stroke-dashoffset 0.7s cubic-bezier(0.4,0,0.2,1), stroke 0.3s;
+}
+.donut-center {
+  position: absolute;
+  inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.donut-pct-text {
+  font-family: var(--mono);
+  font-size: 18px;
   font-weight: 600;
-  color: var(--text-secondary);
-  margin-bottom: 6px;
+  color: var(--text);
+  line-height: 1;
+}
+.donut-sub-text {
+  font-size: 9px;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-}
-label .hint {
-  font-weight: 400;
-  color: var(--text-muted);
-  text-transform: none;
-  letter-spacing: normal;
-  font-size: 10.5px;
-}
-
-input, select {
-  width: 100%;
-  padding: 10px 12px;
-  font-size: 15px;
-  border: 1.5px solid var(--border-strong);
-  border-radius: var(--radius);
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font);
-  outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-input::placeholder { color: var(--text-muted); }
-input:focus, select:focus {
-  border-color: var(--orange);
-  box-shadow: 0 0 0 3px var(--orange-glow);
-}
-select { cursor: pointer; }
-
-.row2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-/* ─── Mode toggle ─── */
-.mode-toggle {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 1.25rem;
-}
-.mode-btn {
-  flex: 1;
-  padding: 11px 10px;
-  font-size: 13px;
+  margin-top: 3px;
   font-weight: 600;
-  border-radius: var(--radius);
-  cursor: pointer;
-  line-height: 1.3;
-  transition: all 0.2s ease;
-  font-family: var(--font);
-}
-.mode-btn.type-a {
-  background: var(--orange-soft);
-  color: var(--orange-deep);
-  border: 1.5px solid var(--orange-border);
-}
-.mode-btn.type-a.active {
-  background: var(--orange);
-  color: #fff;
-  border-color: var(--orange);
-  box-shadow: 0 2px 8px rgba(244, 125, 48, 0.25);
-}
-.mode-btn.type-b {
-  background: var(--steel-soft);
-  color: var(--steel-deep);
-  border: 1.5px solid var(--steel-border);
-}
-.mode-btn.type-b.active {
-  background: var(--steel);
-  color: #fff;
-  border-color: var(--steel);
-  box-shadow: 0 2px 8px rgba(85, 86, 88, 0.25);
 }
 
-/* ─── Buttons ─── */
-.btn-calc {
-  width: 100%;
-  padding: 12px;
-  font-size: 15px;
-  font-weight: 700;
-  background: var(--orange);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  margin-bottom: 1rem;
-  transition: all 0.15s ease;
-  font-family: var(--font);
-  letter-spacing: 0.01em;
-}
-.btn-calc:hover { filter: brightness(1.06); box-shadow: 0 4px 14px rgba(244, 125, 48, 0.3); }
-.btn-calc:active { transform: scale(0.99); filter: brightness(0.95); }
+.donut-legend { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.legend-item { display: flex; align-items: center; gap: 8px; }
+.legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.legend-body {}
+.legend-val { font-size: 14px; font-weight: 700; font-family: var(--mono); color: var(--text); line-height: 1; }
+.legend-lbl { font-size: 10px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 500; margin-top: 2px; }
 
-.btn-secondary {
-  width: 100%;
-  padding: 10px;
-  font-size: 13px;
-  font-weight: 600;
+/* ════════════════════════════════════════════
+   COMPOSITION BAR CHART — Tab 2
+   ════════════════════════════════════════════ */
+.comp-chart-wrap {
   background: var(--bg);
-  color: var(--text-secondary);
-  border: 1.5px solid var(--border-strong);
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: all 0.15s ease;
-  margin-top: 10px;
-  font-family: var(--font);
-}
-.btn-secondary:hover { background: var(--bg-sunken); border-color: var(--orange-border); color: var(--text); }
-
-/* ─── Alerts ─── */
-.alert {
-  padding: 11px 14px;
-  border-radius: var(--radius);
-  font-size: 13px;
-  line-height: 1.45;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 1.25rem 1.5rem;
   margin-bottom: 1rem;
+  box-shadow: var(--shadow-md);
   display: none;
-  font-weight: 500;
 }
-.alert.show { display: flex; align-items: flex-start; gap: 8px; }
-.alert-icon { flex-shrink: 0; font-size: 15px; line-height: 1.3; }
-.alert.warn   { background: var(--warn-bg); color: var(--warn-text); border: 1px solid var(--warn-border); }
-.alert.ok     { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success-border); }
-.alert.info   { background: var(--info-bg); color: var(--info-text); border: 1px solid var(--info-border); }
-.alert.error  { background: var(--error-bg); color: var(--error-text); border: 1px solid var(--error-border); }
+.comp-chart-wrap.show { display: block; animation: fadeIn 0.35s ease; }
 
-/* ─── Metrics ─── */
-.metric-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 1rem;
+.comp-chart-title {
+  font-size: 11px; font-weight: 700; color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px;
 }
-.metric {
-  background: var(--bg);
-  border-radius: var(--radius);
-  padding: 1rem;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
+.cbar-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
 }
-.metric .val {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.1;
-  font-family: var(--mono);
-  letter-spacing: -0.02em;
+.cbar-row:last-child { margin-bottom: 0; }
+.cbar-label {
+  font-size: 11px; font-weight: 600; color: var(--text-secondary);
+  min-width: 70px; text-align: right; flex-shrink: 0;
 }
-.metric .lbl {
-  font-size: 10px;
-  color: var(--text-secondary);
-  margin-top: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 500;
+.cbar-track {
+  flex: 1; height: 22px; background: var(--bg-sunken);
+  border-radius: 6px; overflow: hidden; border: 1px solid var(--border);
+  position: relative;
 }
-.metric.accent .val { color: var(--orange); }
-
-/* ─── Capacity bar ─── */
-.bar-wrap {
-  background: var(--bg);
-  border-radius: var(--radius);
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border: 1px solid var(--border);
-  display: none;
-  box-shadow: var(--shadow-sm);
+.cbar-fill {
+  height: 100%; border-radius: 6px;
+  width: 0%;
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 8px; overflow: hidden; min-width: 0;
+  position: relative;
 }
-.bar-wrap.show { display: block; }
-.bar-header {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-  font-weight: 500;
+.cbar-fill-text {
+  font-size: 10px; font-weight: 700; font-family: var(--mono);
+  color: #fff; white-space: nowrap; opacity: 0;
+  transition: opacity 0.3s 0.5s;
 }
-.bar-pct { font-family: var(--mono); font-weight: 600; font-size: 13px; }
-.bar-track {
-  height: 14px;
-  background: var(--bg-sunken);
-  border-radius: 7px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-}
-.bar-fill {
-  height: 100%;
-  border-radius: 7px;
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s;
+.cbar-fill.loaded .cbar-fill-text { opacity: 1; }
+.cbar-kg {
+  font-size: 11px; font-family: var(--mono); font-weight: 600;
+  color: var(--text-secondary); min-width: 72px; text-align: right; flex-shrink: 0;
 }
 
 /* ─── Pending material box ─── */
 .pending-box {
-  background: var(--bg);
-  border: 1.5px solid var(--orange-border);
-  border-radius: var(--radius-lg);
-  padding: 1rem 1.25rem;
-  margin-bottom: 1rem;
-  box-shadow: var(--shadow-sm);
+  background: var(--bg); border: 1.5px solid var(--orange-border);
+  border-radius: var(--radius-lg); padding: 1rem 1.25rem;
+  margin-bottom: 1rem; box-shadow: var(--shadow-sm);
 }
-.pending-box .pb-title {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--orange-deep);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 10px;
-}
-.pending-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
-}
-.pending-item {
-  background: var(--bg-sunken);
-  border-radius: var(--radius);
-  padding: 0.75rem 0.85rem;
-  border: 1px solid var(--border);
-}
-.pending-item .val {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--text);
-  font-family: var(--mono);
-}
-.pending-item .lbl {
-  font-size: 9.5px;
-  color: var(--text-secondary);
-  margin-top: 3px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-weight: 500;
-}
+.pending-box .pb-title { font-size: 11px; font-weight: 700; color: var(--orange-deep); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
+.pending-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.pending-item { background: var(--bg-sunken); border-radius: var(--radius); padding: 0.75rem 0.85rem; border: 1px solid var(--border); }
+.pending-item .val { font-size: 17px; font-weight: 700; color: var(--text); font-family: var(--mono); }
+.pending-item .lbl { font-size: 9.5px; color: var(--text-secondary); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 500; }
 
 /* ─── Composition cards ─── */
 .comp-section { margin-bottom: 1rem; }
-.comp-section-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 10px;
-}
+.comp-section-title { font-size: 12px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
 .comp-card {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 11px 14px;
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: var(--shadow-sm);
-  transition: border-color 0.15s;
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 11px 14px; margin-bottom: 8px; display: flex; justify-content: space-between;
+  align-items: center; box-shadow: var(--shadow-sm); transition: border-color 0.15s;
 }
 .comp-card:hover { border-color: var(--border-strong); }
-.comp-card .comp-num {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--orange);
-  min-width: 100px;
-}
-.comp-card .comp-uds {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text);
-  font-family: var(--mono);
-}
-.comp-card .comp-kg {
-  font-size: 12px;
-  color: var(--text-secondary);
-  text-align: right;
-  font-family: var(--mono);
-}
-.comp-card.last {
-  border-color: var(--orange-border);
-  background: var(--orange-soft);
-}
+.comp-card .comp-num { font-size: 12px; font-weight: 700; color: var(--orange); min-width: 100px; }
+.comp-card .comp-uds { font-size: 15px; font-weight: 700; color: var(--text); font-family: var(--mono); }
+.comp-card .comp-kg  { font-size: 12px; color: var(--text-secondary); text-align: right; font-family: var(--mono); }
+.comp-card.last { border-color: var(--orange-border); background: var(--orange-soft); }
 .comp-card.last .comp-uds { color: var(--orange-deep); }
 
 /* ─── History ─── */
 .divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
-.hist-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.hist-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.btn-clear {
-  font-size: 12px;
-  color: var(--text-muted);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: all 0.15s;
-  font-family: var(--font);
-}
+.hist-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.hist-title { font-size: 12px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+.btn-clear { font-size: 12px; color: var(--text-muted); background: none; border: none; cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: all 0.15s; font-family: var(--font); }
 .btn-clear:hover { color: var(--error-text); background: var(--error-bg); }
-
 .hist-item {
-  background: var(--bg);
-  border-radius: var(--radius);
-  padding: 11px 14px;
-  margin-bottom: 8px;
-  font-size: 13px;
-  color: var(--text-secondary);
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  cursor: pointer;
-  border: 1px solid var(--border);
-  transition: all 0.15s ease;
-  box-shadow: var(--shadow-sm);
+  background: var(--bg); border-radius: var(--radius); padding: 11px 14px; margin-bottom: 8px;
+  font-size: 13px; color: var(--text-secondary); display: flex; justify-content: space-between;
+  gap: 8px; cursor: pointer; border: 1px solid var(--border); transition: all 0.15s ease; box-shadow: var(--shadow-sm);
 }
-.hist-item:hover {
-  border-color: var(--orange-border);
-  box-shadow: 0 2px 8px var(--orange-glow);
-}
+.hist-item:hover { border-color: var(--orange-border); box-shadow: 0 2px 8px var(--orange-glow); }
 .hist-item .hi-main { color: var(--text); font-weight: 600; }
 
 /* ─── Results ─── */
 .results { display: none; }
 .results.show { display: block; animation: fadeIn 0.3s ease; }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ─── Footer ─── */
-.footer {
-  margin-top: 2.5rem;
-  text-align: center;
-  font-size: 12px;
-  color: var(--text-muted);
-  padding-bottom: 1rem;
-  line-height: 1.6;
-}
-.footer a {
-  color: var(--text-secondary);
-  text-decoration: none;
-  transition: color 0.15s;
-}
+.footer { margin-top: 2.5rem; text-align: center; font-size: 12px; color: var(--text-muted); padding-bottom: 1rem; line-height: 1.6; }
+.footer a { color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
 .footer a:hover { color: var(--orange); }
 
 /* ─── Utilities ─── */
 .hidden { display: none !important; }
 
-/* ─── Responsive tweaks ─── */
 @media (max-width: 400px) {
   .pending-grid { grid-template-columns: 1fr; }
   .mode-btn { font-size: 12px; padding: 9px 6px; }
+  .donut-wrap.show { flex-direction: column; align-items: center; }
+  .cbar-label { min-width: 52px; font-size: 10px; }
+  .cbar-kg { min-width: 58px; font-size: 10px; }
+  .pkg-pill { font-size: 11px; padding: 8px 2px; }
+  .pkg-input { font-size: 12px; padding: 7px 6px; }
 }
 </style>
 </head>
 <body>
 <div class="app">
+
   <!-- Header -->
   <header class="header">
     <div class="header-badge">🚂 Carga ferroviaria</div>
@@ -587,15 +410,15 @@ select { cursor: pointer; }
 
   <!-- Tabs -->
   <nav class="tabs" role="tablist">
-    <button class="tab active" role="tab" aria-selected="true" onclick="setTab('calc')">Cálculo de carga</button>
-    <button class="tab" role="tab" aria-selected="false" onclick="setTab('comp')">Composiciones</button>
+    <button class="tab active" role="tab" aria-selected="true"  onclick="setTab('calc')">Cálculo de carga</button>
+    <button class="tab"        role="tab" aria-selected="false" onclick="setTab('comp')">Composiciones</button>
   </nav>
 
-  <!-- ===== TAB 1: LOAD CALCULATION ===== -->
+  <!-- ═══════════════ TAB 1 ═══════════════ -->
   <section class="pane active" id="pane-calc" role="tabpanel">
     <div class="mode-toggle">
       <button class="mode-btn type-a active" id="btn-unidades" onclick="setModo('unidades')">Peso máx → Unidades</button>
-      <button class="mode-btn type-b" id="btn-peso" onclick="setModo('peso')">Unidades → Peso</button>
+      <button class="mode-btn type-b"        id="btn-peso"     onclick="setModo('peso')">Unidades → Peso</button>
     </div>
 
     <div class="card">
@@ -615,20 +438,40 @@ select { cursor: pointer; }
         <label>Longitud por unidad <span class="hint">(m · máx. 108)</span></label>
         <input type="number" id="longitud" placeholder="ej. 12.192" min="0.001" max="108" step="0.001" inputmode="decimal">
       </div>
+      <div class="field">
+        <label>Tamaño de paquete <span class="hint">(uds. agrupadas · 1 = suelto)</span></label>
+        <div class="pkg-quick">
+          <button type="button" class="pkg-pill active" onclick="setPkg('udsPaquete', this, 1)">Suelto</button>
+          <button type="button" class="pkg-pill" onclick="setPkg('udsPaquete', this, 3)">3 uds</button>
+          <button type="button" class="pkg-pill" onclick="setPkg('udsPaquete', this, 5)">5 uds</button>
+          <input type="number" id="udsPaquete" class="pkg-input" value="1" min="1" step="1" inputmode="numeric"
+                 oninput="syncPkg('udsPaquete')" aria-label="Unidades por paquete">
+        </div>
+      </div>
     </div>
 
-    <button class="btn-calc" id="btnCalc" onclick="calcular()">Calcular</button>
+    <button class="btn-calc" onclick="calcular()">Calcular</button>
 
     <div class="results" id="results">
       <div class="alert" id="alertBox" role="alert"></div>
-      <div class="metric-grid" id="metricGrid"></div>
-      <div class="bar-wrap" id="barWrap">
-        <div class="bar-header">
-          <span>Ocupación de carga</span>
-          <span class="bar-pct" id="barPct"></span>
+
+      <!-- DONUT CHART -->
+      <div class="donut-wrap" id="donutWrap">
+        <div class="donut-svg-wrap">
+          <svg class="donut-svg" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle class="donut-track" cx="45" cy="45" r="40"/>
+            <circle class="donut-seg"  cx="45" cy="45" r="40" id="donutSeg"
+                    stroke-dasharray="251.2" stroke-dashoffset="251.2"/>
+          </svg>
+          <div class="donut-center">
+            <span class="donut-pct-text" id="donutPct">0%</span>
+            <span class="donut-sub-text">carga</span>
+          </div>
         </div>
-        <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+        <div class="donut-legend" id="donutLegend"></div>
       </div>
+
+      <div class="metric-grid" id="metricGrid"></div>
       <button class="btn-secondary" id="btnCopy" onclick="copiar()">Copiar resumen al portapapeles</button>
     </div>
 
@@ -642,7 +485,7 @@ select { cursor: pointer; }
     </div>
   </section>
 
-  <!-- ===== TAB 2: COMPOSITION PLANNING ===== -->
+  <!-- ═══════════════ TAB 2 ═══════════════ -->
   <section class="pane" id="pane-comp" role="tabpanel">
     <div class="card">
       <div class="row2">
@@ -669,6 +512,16 @@ select { cursor: pointer; }
         <label>Peso máximo por composición <span class="hint">(kg · máx. 300.000)</span></label>
         <input type="number" id="c-pesocomp" placeholder="ej. 60000" min="1" max="300000" step="1" inputmode="numeric">
       </div>
+      <div class="field">
+        <label>Tamaño de paquete <span class="hint">(uds. agrupadas · 1 = suelto)</span></label>
+        <div class="pkg-quick">
+          <button type="button" class="pkg-pill active" onclick="setPkg('c-udsPaquete', this, 1)">Suelto</button>
+          <button type="button" class="pkg-pill" onclick="setPkg('c-udsPaquete', this, 3)">3 uds</button>
+          <button type="button" class="pkg-pill" onclick="setPkg('c-udsPaquete', this, 5)">5 uds</button>
+          <input type="number" id="c-udsPaquete" class="pkg-input" value="1" min="1" step="1" inputmode="numeric"
+                 oninput="syncPkg('c-udsPaquete')" aria-label="Unidades por paquete">
+        </div>
+      </div>
     </div>
 
     <button class="btn-calc" onclick="calcularComp()">Calcular composiciones</button>
@@ -679,22 +532,19 @@ select { cursor: pointer; }
       <div class="pending-box" id="comp-pending">
         <div class="pb-title">Material pendiente</div>
         <div class="pending-grid">
-          <div class="pending-item">
-            <div class="val" id="cp-uds">—</div>
-            <div class="lbl">Unidades</div>
-          </div>
-          <div class="pending-item">
-            <div class="val" id="cp-kg">—</div>
-            <div class="lbl">Peso total</div>
-          </div>
-          <div class="pending-item">
-            <div class="val" id="cp-uunit">—</div>
-            <div class="lbl">kg / unidad</div>
-          </div>
+          <div class="pending-item"><div class="val" id="cp-uds">—</div><div class="lbl">Unidades</div></div>
+          <div class="pending-item"><div class="val" id="cp-kg">—</div><div class="lbl">Peso total</div></div>
+          <div class="pending-item"><div class="val" id="cp-uunit">—</div><div class="lbl" id="cp-uunit-lbl">kg / unidad</div></div>
         </div>
       </div>
 
       <div class="metric-grid" id="comp-metricGrid"></div>
+
+      <!-- BAR CHART -->
+      <div class="comp-chart-wrap" id="compChartWrap">
+        <div class="comp-chart-title">Carga por composición</div>
+        <div id="compChartBars"></div>
+      </div>
 
       <div class="comp-section">
         <div class="comp-section-title">Detalle por composición</div>
@@ -706,9 +556,9 @@ select { cursor: pointer; }
   </section>
 
   <footer class="footer">
-    Rubén Prendes · v2.0
+    Rubén Prendes · v3.1
     <br>
-    <a href="https://github.com" target="_blank" rel="noopener">Ver en GitHub</a>
+    <a href="https://github.com/cerebroetereo/Calculadora-Cargue" target="_blank" rel="noopener">Ver en GitHub</a>
   </footer>
 </div>
 
@@ -717,17 +567,17 @@ select { cursor: pointer; }
    RAIL PROFILES — weight in kg per linear meter
    ═══════════════════════════════════════════════════ */
 const FORMATOS = {
-  "CAR100": 74.30, "CAR200": 19.80, "CAR33C": 32.99, "CAR400": 39.76,
-  "CAR440": 44.65, "CAR450": 44.79, "CAR451": 45.10, "CAR452": 45.51,
-  "CAR460": 46.27, "CAR46E": 46.27, "CAR49E": 49.39, "CAR490": 49.61,
-  "CAR50E": 50.90, "CAR503": 50.02, "CAR500": 49.43, "CAR54E": 54.77,
-  "CAR54H": 53.82, "CAR54F": 54.57, "CAR54G": 54.31, "CAR54S": 54.54,
-  "CAR540": 54.43, "CAR55R": 55.45, "CAR56E": 56.30, "CAR570": 56.89,
-  "CAR578": 56.74, "CAR59R": 59.74, "CAR60A": 60.04, "CAR60E": 60.21,
-  "CAR60R": 60.48, "CAR60S": 60.60, "CAR600": 60.34, "CAR61R": 60.59,
-  "CAR62R": 59.75, "CAR65G": 64.88, "CAR670": 67.49, "CAR678": 67.41,
-  "CAR69A": 68.95, "CAR70A": 69.82, "CAR700": 69.80, "CAR73A": 72.97,
-  "CAR74A": 74.24, "CAR76A": 76.21
+  "CAR100":74.30,"CAR200":19.80,"CAR33C":32.99,"CAR400":39.76,
+  "CAR440":44.65,"CAR450":44.79,"CAR451":45.10,"CAR452":45.51,
+  "CAR460":46.27,"CAR46E":46.27,"CAR49E":49.39,"CAR490":49.61,
+  "CAR50E":50.90,"CAR503":50.02,"CAR500":49.43,"CAR54E":54.77,
+  "CAR54H":53.82,"CAR54F":54.57,"CAR54G":54.31,"CAR54S":54.54,
+  "CAR540":54.43,"CAR55R":55.45,"CAR56E":56.30,"CAR570":56.89,
+  "CAR578":56.74,"CAR59R":59.74,"CAR60A":60.04,"CAR60E":60.21,
+  "CAR60R":60.48,"CAR60S":60.60,"CAR600":60.34,"CAR61R":60.59,
+  "CAR62R":59.75,"CAR65G":64.88,"CAR670":67.49,"CAR678":67.41,
+  "CAR69A":68.95,"CAR70A":69.82,"CAR700":69.80,"CAR73A":72.97,
+  "CAR74A":74.24,"CAR76A":76.21
 };
 
 /* ─── State ─── */
@@ -736,30 +586,47 @@ let historial = [];
 let ultimoResultado = null;
 let ultimoComp = null;
 
-/* ─── Utility: format numbers ─── */
+/* ─── Utilities ─── */
 const fmtNum = (n) => Math.round(n).toLocaleString("es-ES");
-const fmtDec = (n, d = 1) => n.toFixed(d);
+const fmtDec = (n, d = 1) => (+n).toFixed(d);
 
-/* ─── Utility: show inline alert ─── */
 function showAlert(el, type, icon, msg) {
   el.className = `alert ${type} show`;
   el.innerHTML = `<span class="alert-icon">${icon}</span><span>${msg}</span>`;
 }
-function hideAlert(el) {
-  el.className = "alert";
-  el.innerHTML = "";
-}
+function hideAlert(el) { el.className = "alert"; el.innerHTML = ""; }
 
-/* ─── Utility: show validation error (uses inline alerts instead of native alert()) ─── */
-function showError(paneId, msg) {
-  const alertEl = document.getElementById(paneId === "comp" ? "comp-alertBox" : "alertBox");
+function showError(pane, msg) {
+  const alertEl = document.getElementById(pane === "comp" ? "comp-alertBox" : "alertBox");
   showAlert(alertEl, "error", "⚠️", msg);
-  const results = document.getElementById(paneId === "comp" ? "comp-results" : "results");
-  results.classList.add("show");
+  document.getElementById(pane === "comp" ? "comp-results" : "results").classList.add("show");
 }
 
-/* ─── Populate format selectors ─── */
-["formato", "c-formato"].forEach(id => {
+/* ─── Package helpers ─── */
+function setPkg(inputId, btn, val) {
+  const group = btn.closest(".pkg-quick");
+  group.querySelectorAll(".pkg-pill").forEach(p => p.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById(inputId).value = val;
+}
+function syncPkg(inputId) {
+  const val = parseInt(document.getElementById(inputId).value);
+  const group = document.getElementById(inputId).closest(".pkg-quick");
+  group.querySelectorAll(".pkg-pill").forEach(p => {
+    let pVal;
+    const txt = p.textContent.trim();
+    if (txt === "Suelto") pVal = 1;
+    else pVal = parseInt(txt);
+    p.classList.toggle("active", pVal === val);
+  });
+}
+function getPaq(id) {
+  const v = parseInt(document.getElementById(id).value);
+  return (!v || v < 1) ? 1 : v;
+}
+
+/* ─── Populate selectors ─── */
+["formato","c-formato"].forEach(id => {
   const sel = document.getElementById(id);
   Object.keys(FORMATOS).sort().forEach(f => {
     const opt = document.createElement("option");
@@ -769,28 +636,25 @@ function showError(paneId, msg) {
   });
 });
 
-/* ─── Enter key support ─── */
-document.addEventListener("keydown", (e) => {
+/* ─── Enter key ─── */
+document.addEventListener("keydown", e => {
   if (e.key !== "Enter") return;
-  const active = document.querySelector(".pane.active");
-  if (active.id === "pane-calc") calcular();
+  if (document.getElementById("pane-calc").classList.contains("active")) calcular();
   else calcularComp();
 });
-
 
 /* ═══════════════════════════════════════
    TABS
    ═══════════════════════════════════════ */
 function setTab(t) {
   document.querySelectorAll(".tab").forEach((btn, i) => {
-    const isActive = ["calc", "comp"][i] === t;
-    btn.classList.toggle("active", isActive);
-    btn.setAttribute("aria-selected", isActive);
+    const isA = ["calc","comp"][i] === t;
+    btn.classList.toggle("active", isA);
+    btn.setAttribute("aria-selected", isA);
   });
   document.getElementById("pane-calc").classList.toggle("active", t === "calc");
   document.getElementById("pane-comp").classList.toggle("active", t === "comp");
 }
-
 
 /* ═══════════════════════════════════════
    TAB 1: LOAD CALCULATION
@@ -805,94 +669,148 @@ function setModo(m) {
   ultimoResultado = null;
 }
 
+/* ─── Donut chart renderer ─── */
+function renderDonut(pct, pesoTotal, residual, pMax) {
+  const CIRC = 251.2;
+  const fill = Math.min(pct / 100, 1) * CIRC;
+  const offset = CIRC - fill;
+  const color = pct >= 95 ? "#E24B4A" : pct >= 75 ? "#EF9F27" : "#1D9E75";
+
+  const seg  = document.getElementById("donutSeg");
+  const pctEl = document.getElementById("donutPct");
+
+  seg.style.transition = "none";
+  seg.setAttribute("stroke-dashoffset", CIRC);
+  seg.setAttribute("stroke", color);
+  void seg.getBoundingClientRect();
+  seg.style.transition = "stroke-dashoffset 0.7s cubic-bezier(0.4,0,0.2,1), stroke 0.3s";
+  seg.setAttribute("stroke-dashoffset", offset);
+
+  pctEl.textContent = "0%";
+  const start = performance.now();
+  const dur = 700;
+  const animate = (now) => {
+    const t = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    pctEl.textContent = fmtDec(pct * ease, 1) + "%";
+    if (t < 1) requestAnimationFrame(animate);
+    else pctEl.textContent = fmtDec(pct, 1) + "%";
+  };
+  requestAnimationFrame(animate);
+
+  const legend = document.getElementById("donutLegend");
+  const items = [
+    { dot: color,              val: fmtNum(pesoTotal) + " kg", lbl: "Carga utilizada" },
+    { dot: "var(--bg-sunken)", val: fmtNum(residual)  + " kg", lbl: "Peso residual",   border: true },
+    { dot: "transparent",      val: fmtNum(pMax)      + " kg", lbl: "Capacidad total", border: true },
+  ];
+  legend.innerHTML = items.map(it =>
+    `<div class="legend-item">
+      <div class="legend-dot" style="background:${it.dot};${it.border?"border:1.5px solid var(--border-strong);":""}"></div>
+      <div class="legend-body">
+        <div class="legend-val">${it.val}</div>
+        <div class="legend-lbl">${it.lbl}</div>
+      </div>
+    </div>`
+  ).join("");
+
+  document.getElementById("donutWrap").classList.add("show");
+}
+
 function calcular() {
   const fmt = document.getElementById("formato").value;
   const lon = parseFloat(document.getElementById("longitud").value);
+  const udsPaquete = getPaq("udsPaquete");
   const kgm = FORMATOS[fmt];
 
-  // Validation
-  if (!lon || lon <= 0 || lon > 108) {
-    showError("calc", "La longitud debe estar entre 0 y 108 metros.");
-    return;
-  }
+  if (!lon || lon <= 0 || lon > 108) { showError("calc", "La longitud debe estar entre 0 y 108 metros."); return; }
 
   const pesoUnit = kgm * lon;
-  let uds, pesoTotal, pMax;
+  const pesoPaquete = pesoUnit * udsPaquete;
+  let uds, pesoTotal, pMax, nPaquetes;
 
   if (modo === "unidades") {
     pMax = parseFloat(document.getElementById("pesoMax").value);
     if (!pMax || pMax <= 0) { showError("calc", "Introduce el peso máximo admitido."); return; }
-    if (pMax > 300000) { showError("calc", "El peso máximo no puede superar 300.000 kg (300 t)."); return; }
-    uds = Math.floor(pMax / pesoUnit);
+    if (pMax > 300000)      { showError("calc", "El peso máximo no puede superar 300.000 kg (300 t)."); return; }
+    if (pesoPaquete > pMax) {
+      showError("calc", `Un paquete de ${udsPaquete} uds (${fmtNum(pesoPaquete)} kg) supera el peso máximo admitido. Reduce el tamaño de paquete o aumenta el peso máx.`);
+      return;
+    }
+    nPaquetes = Math.floor(pMax / pesoPaquete);
+    uds       = nPaquetes * udsPaquete;
     pesoTotal = uds * pesoUnit;
   } else {
     uds = parseInt(document.getElementById("unidadesInput").value);
     if (!uds || uds <= 0) { showError("calc", "Introduce el número de unidades."); return; }
     pesoTotal = uds * pesoUnit;
-    pMax = null;
+    pMax      = null;
+    nPaquetes = udsPaquete > 1 ? Math.floor(uds / udsPaquete) : null;
   }
 
   const residual = pMax !== null ? pMax - pesoTotal : null;
-  const pct = pMax !== null ? (pesoTotal / pMax) * 100 : null;
-  ultimoResultado = { fmt, lon, uds, pesoUnit, pesoTotal, residual, pct, pMax };
+  const pct      = pMax !== null ? (pesoTotal / pMax) * 100 : null;
+  const sueltas  = (udsPaquete > 1 && modo === "peso") ? uds % udsPaquete : 0;
+
+  ultimoResultado = { fmt, lon, uds, pesoUnit, pesoTotal, residual, pct, pMax, udsPaquete, nPaquetes, sueltas };
 
   // Alert
   const ab = document.getElementById("alertBox");
   hideAlert(ab);
-  if (residual !== null && residual > 5000) {
-    showAlert(ab, "warn", "⚡", `Carga subóptima: quedan ${fmtNum(residual)} kg sin aprovechar.`);
-  } else if (pct !== null && pct >= 95) {
+  if (residual !== null && residual > 5000)
+    showAlert(ab, "warn", "⚡", `Carga subóptima: quedan ${fmtNum(residual)} kg sin aprovechar${udsPaquete > 1 ? ` (no caben más paquetes completos de ${udsPaquete} uds)` : ""}.`);
+  else if (pct !== null && pct >= 95)
     showAlert(ab, "ok", "✅", `Carga óptima: ${fmtDec(pct)}% del peso máximo utilizado.`);
-  }
+  else if (sueltas > 0)
+    showAlert(ab, "info", "📦", `${uds} uds = ${nPaquetes} paquetes completos de ${udsPaquete} + ${sueltas} sueltas.`);
+
+  if (pct !== null) renderDonut(pct, pesoTotal, residual, pMax);
+  else document.getElementById("donutWrap").classList.remove("show");
 
   // Metrics
   const grid = document.getElementById("metricGrid");
   grid.innerHTML = "";
-  const metrics = [
-    { val: uds, lbl: "Unidades" },
-    { val: `${fmtNum(pesoTotal)} kg`, lbl: "Peso total" },
-    { val: `${fmtDec(pesoUnit)} kg`, lbl: "Peso por unidad" },
-  ];
-  if (residual !== null) {
-    metrics.push({ val: `${fmtNum(residual)} kg`, lbl: "Peso residual" });
+  const metrics = [{ val: uds, lbl: "Unidades" }];
+  if (udsPaquete > 1 && nPaquetes !== null) {
+    metrics.push({ val: nPaquetes, lbl: `Paquetes (×${udsPaquete} uds)`, pkg: true });
   }
+  metrics.push(
+    { val: `${fmtNum(pesoTotal)} kg`, lbl: "Peso total" },
+    { val: `${fmtDec(pesoUnit)} kg`,  lbl: "Peso por unidad" }
+  );
+  if (udsPaquete > 1) metrics.push({ val: `${fmtNum(pesoPaquete)} kg`, lbl: "Peso por paquete" });
+  if (residual !== null) metrics.push({ val: `${fmtNum(residual)} kg`, lbl: "Peso residual" });
   metrics.forEach(item => {
     const d = document.createElement("div");
-    d.className = "metric";
+    d.className = "metric" + (item.pkg ? " pkg" : "");
     d.innerHTML = `<div class="val">${item.val}</div><div class="lbl">${item.lbl}</div>`;
     grid.appendChild(d);
   });
-
-  // Capacity bar
-  const bw = document.getElementById("barWrap");
-  if (pct !== null) {
-    bw.classList.add("show");
-    const fill = document.getElementById("barFill");
-    fill.style.width = Math.min(pct, 100) + "%";
-    fill.style.background = pct > 95 ? "#E24B4A" : pct > 75 ? "#EF9F27" : "#1D9E75";
-    document.getElementById("barPct").textContent = fmtDec(pct) + "%";
-  } else {
-    bw.classList.remove("show");
-  }
 
   document.getElementById("results").classList.add("show");
   document.getElementById("btnCopy").textContent = "Copiar resumen al portapapeles";
 
   // History
   const entrada = modo === "unidades" ? `${fmtNum(pMax)} kg máx` : `${uds} uds`;
-  historial.unshift({ id: Date.now(), fmt, lon, entrada, uds, pesoTotal: Math.round(pesoTotal), modo, pMax });
+  historial.unshift({ id: Date.now(), fmt, lon, entrada, uds, pesoTotal: Math.round(pesoTotal), modo, pMax, udsPaquete });
   if (historial.length > 10) historial.pop();
   renderHistorial();
 }
 
 function copiar() {
   if (!ultimoResultado) return;
-  const { fmt, lon, uds, pesoTotal, pesoUnit, residual } = ultimoResultado;
+  const { fmt, lon, uds, pesoTotal, pesoUnit, residual, udsPaquete, nPaquetes, sueltas } = ultimoResultado;
   let txt = `=== Calculadora de Carga Ferroviaria ===\n`;
-  txt += `Formato: ${fmt}  ·  Longitud: ${lon} m\n\n`;
+  txt += `Formato: ${fmt}  ·  Longitud: ${lon} m`;
+  if (udsPaquete > 1) txt += `  ·  Paquetes de ${udsPaquete} uds`;
+  txt += `\n\n`;
   txt += `Unidades: ${uds}\n`;
+  if (udsPaquete > 1 && nPaquetes !== null) {
+    txt += `Paquetes: ${nPaquetes}${sueltas ? ` (+ ${sueltas} sueltas)` : ""}\n`;
+  }
   txt += `Peso total: ${fmtNum(pesoTotal)} kg\n`;
   txt += `Peso por unidad: ${fmtDec(pesoUnit)} kg\n`;
+  if (udsPaquete > 1) txt += `Peso por paquete: ${fmtNum(pesoUnit * udsPaquete)} kg\n`;
   if (residual !== null) txt += `Peso residual: ${fmtNum(residual)} kg\n`;
 
   navigator.clipboard.writeText(txt).then(() => {
@@ -903,7 +821,7 @@ function copiar() {
 }
 
 function renderHistorial() {
-  const sec = document.getElementById("histSection");
+  const sec  = document.getElementById("histSection");
   const list = document.getElementById("histList");
   if (!historial.length) { sec.classList.add("hidden"); return; }
   sec.classList.remove("hidden");
@@ -911,13 +829,16 @@ function renderHistorial() {
   historial.forEach(r => {
     const d = document.createElement("div");
     d.className = "hist-item";
+    const pkgTag = r.udsPaquete > 1 ? ` · paq.×${r.udsPaquete}` : "";
     d.innerHTML = `
-      <div><span class="hi-main">${r.fmt} · ${r.lon} m</span><br>${r.entrada}</div>
+      <div><span class="hi-main">${r.fmt} · ${r.lon} m${pkgTag}</span><br>${r.entrada}</div>
       <div style="text-align:right"><span class="hi-main">${r.uds} uds</span><br>${fmtNum(r.pesoTotal)} kg</div>`;
     d.onclick = () => {
       setModo(r.modo);
       document.getElementById("formato").value = r.fmt;
       document.getElementById("longitud").value = r.lon;
+      document.getElementById("udsPaquete").value = r.udsPaquete || 1;
+      syncPkg("udsPaquete");
       if (r.modo === "unidades") document.getElementById("pesoMax").value = r.pMax;
       else document.getElementById("unidadesInput").value = r.uds;
     };
@@ -925,106 +846,186 @@ function renderHistorial() {
   });
 }
 
-function limpiarHistorial() {
-  historial = [];
-  renderHistorial();
-}
+function limpiarHistorial() { historial = []; renderHistorial(); }
 
 
 /* ═══════════════════════════════════════
    TAB 2: COMPOSITION PLANNING
    ═══════════════════════════════════════ */
+
+function renderCompChart(comps, pesoUnit, pesoComp, udsPaquete) {
+  const wrap = document.getElementById("compChartWrap");
+  const bars = document.getElementById("compChartBars");
+  bars.innerHTML = "";
+
+  const maxPeso = pesoComp;
+  const fullCompUds = comps[0]; // first comp = full capacity reference
+
+  comps.forEach((uds, i) => {
+    const kg  = uds * pesoUnit;
+    const pct = Math.min((kg / maxPeso) * 100, 100);
+    const isLast = i === comps.length - 1 && uds < fullCompUds;
+    const fillColor = isLast ? "var(--steel)" : "var(--orange)";
+    const labelText = udsPaquete > 1
+      ? `${uds} uds (${Math.floor(uds / udsPaquete)}${(uds % udsPaquete) ? "+" + (uds % udsPaquete) : ""} paq.)`
+      : `${uds} uds`;
+
+    const row = document.createElement("div");
+    row.className = "cbar-row";
+    row.innerHTML = `
+      <span class="cbar-label">Comp. ${i + 1}${isLast ? " ★" : ""}</span>
+      <div class="cbar-track">
+        <div class="cbar-fill" id="cbar-${i}" style="background:${fillColor};width:0%">
+          <span class="cbar-fill-text">${labelText}</span>
+        </div>
+      </div>
+      <span class="cbar-kg">${fmtNum(kg)} kg</span>`;
+    bars.appendChild(row);
+
+    setTimeout(() => {
+      const fill = document.getElementById(`cbar-${i}`);
+      fill.style.width = pct + "%";
+      setTimeout(() => fill.classList.add("loaded"), 500);
+    }, 30 + i * 60);
+  });
+
+  wrap.classList.add("show");
+}
+
 function calcularComp() {
-  const fmt = document.getElementById("c-formato").value;
-  const lon = parseFloat(document.getElementById("c-longitud").value);
-  const total = parseInt(document.getElementById("c-total").value);
-  const cargado = parseInt(document.getElementById("c-cargado").value) || 0;
-  const pesoComp = parseFloat(document.getElementById("c-pesocomp").value);
-  const kgm = FORMATOS[fmt];
+  const fmt        = document.getElementById("c-formato").value;
+  const lon        = parseFloat(document.getElementById("c-longitud").value);
+  const total      = parseInt(document.getElementById("c-total").value);
+  const cargado    = parseInt(document.getElementById("c-cargado").value) || 0;
+  const pesoComp   = parseFloat(document.getElementById("c-pesocomp").value);
+  const udsPaquete = getPaq("c-udsPaquete");
+  const kgm        = FORMATOS[fmt];
 
-  // Validation
-  if (!lon || lon <= 0 || lon > 108) { showError("comp", "La longitud debe estar entre 0 y 108 metros."); return; }
-  if (!total || total <= 0) { showError("comp", "Introduce el material a cargar."); return; }
-  if (cargado < 0) { showError("comp", "El material cargado no puede ser negativo."); return; }
-  if (cargado > total) { showError("comp", "El material cargado no puede superar el total."); return; }
-  if (!pesoComp || pesoComp <= 0) { showError("comp", "Introduce el peso máximo por composición."); return; }
-  if (pesoComp > 300000) { showError("comp", "El peso por composición no puede superar 300.000 kg."); return; }
+  if (!lon || lon <= 0 || lon > 108)   { showError("comp", "La longitud debe estar entre 0 y 108 metros."); return; }
+  if (!total || total <= 0)            { showError("comp", "Introduce el material a cargar."); return; }
+  if (cargado < 0)                     { showError("comp", "El material cargado no puede ser negativo."); return; }
+  if (cargado > total)                 { showError("comp", "El material cargado no puede superar el total."); return; }
+  if (!pesoComp || pesoComp <= 0)      { showError("comp", "Introduce el peso máximo por composición."); return; }
+  if (pesoComp > 300000)               { showError("comp", "El peso por composición no puede superar 300.000 kg."); return; }
 
-  const pesoUnit = kgm * lon;
-  const pendiente = total - cargado;
-  const pesoPendiente = pendiente * pesoUnit;
-  const udsPorComp = Math.floor(pesoComp / pesoUnit);
+  const pesoUnit      = kgm * lon;
+  const pesoPaquete   = pesoUnit * udsPaquete;
+
+  if (pesoPaquete > pesoComp) {
+    showError("comp", `Un paquete de ${udsPaquete} uds (${fmtNum(pesoPaquete)} kg) supera el peso por composición. Reduce el tamaño de paquete o aumenta el peso máx.`);
+    return;
+  }
+
+  const pendiente       = total - cargado;
+  const pesoPendiente   = pendiente * pesoUnit;
+  const paquetesPorComp = Math.floor(pesoComp / pesoPaquete);
+  const udsPorComp      = paquetesPorComp * udsPaquete;
 
   if (udsPorComp === 0) {
     showError("comp", "El peso por composición es insuficiente para una unidad de este formato y longitud.");
     return;
   }
 
-  // Alert: all loaded
+  // Warn if pendiente isn't a multiple of package size (data inconsistency)
+  const restoTotal = pendiente % udsPaquete;
+
   const ab = document.getElementById("comp-alertBox");
   hideAlert(ab);
   if (pendiente === 0) {
     showAlert(ab, "ok", "✅", "Todo el material ya ha sido expedido. No hay pendiente.");
     document.getElementById("comp-results").classList.add("show");
+    document.getElementById("compChartWrap").classList.remove("show");
     return;
   }
+  if (udsPaquete > 1 && restoTotal !== 0) {
+    showAlert(ab, "warn", "⚠️", `El material pendiente (${pendiente}) no es múltiplo del tamaño de paquete (${udsPaquete}). La última composición incluirá ${restoTotal} ud(s) suelta(s).`);
+  }
 
-  // Compositions
+  // Distribute compositions
   const nCompletas = Math.floor(pendiente / udsPorComp);
-  const resto = pendiente % udsPorComp;
-  const nTotal = nCompletas + (resto > 0 ? 1 : 0);
+  const resto      = pendiente % udsPorComp;
+  const nTotal     = nCompletas + (resto > 0 ? 1 : 0);
   const comps = [];
   for (let i = 0; i < nCompletas; i++) comps.push(udsPorComp);
   if (resto > 0) comps.push(resto);
 
-  // Pending material
-  document.getElementById("cp-uds").textContent = pendiente;
-  document.getElementById("cp-kg").textContent = fmtNum(pesoPendiente) + " kg";
-  document.getElementById("cp-uunit").textContent = fmtDec(pesoUnit) + " kg";
+  // Pending material display
+  const paqPendiente = udsPaquete > 1 ? Math.floor(pendiente / udsPaquete) : null;
+  const pendStr = udsPaquete > 1
+    ? `${pendiente} (${paqPendiente} paq.${restoTotal ? ` + ${restoTotal}` : ""})`
+    : `${pendiente}`;
+  document.getElementById("cp-uds").textContent   = pendStr;
+  document.getElementById("cp-uds").style.fontSize = (udsPaquete > 1) ? "14px" : "17px";
+  document.getElementById("cp-kg").textContent    = fmtNum(pesoPendiente) + " kg";
+  document.getElementById("cp-uunit").textContent = udsPaquete > 1
+    ? fmtNum(pesoPaquete) + " kg"
+    : fmtDec(pesoUnit) + " kg";
+  document.getElementById("cp-uunit-lbl").textContent = udsPaquete > 1
+    ? `kg / paquete (×${udsPaquete})`
+    : "kg / unidad";
 
   // Summary metrics
   const mg = document.getElementById("comp-metricGrid");
   mg.innerHTML = "";
-  [
+  const metrics = [
     { val: nTotal, lbl: "Composiciones necesarias", accent: true },
-    { val: udsPorComp, lbl: "Uds. máx. por composición" },
+    {
+      val: udsPorComp,
+      lbl: udsPaquete > 1
+        ? `Uds. máx. / comp. (${paquetesPorComp} paq.)`
+        : "Uds. máx. por composición"
+    },
     { val: fmtNum(udsPorComp * pesoUnit) + " kg", lbl: "Carga máx. por composición" },
     { val: fmtNum((resto > 0 ? resto : udsPorComp) * pesoUnit) + " kg", lbl: "Carga última composición" },
-  ].forEach(item => {
+  ];
+  metrics.forEach(item => {
     const d = document.createElement("div");
     d.className = "metric" + (item.accent ? " accent" : "");
     d.innerHTML = `<div class="val">${item.val}</div><div class="lbl">${item.lbl}</div>`;
     mg.appendChild(d);
   });
 
-  // Composition detail
+  // Bar chart
+  renderCompChart(comps, pesoUnit, pesoComp, udsPaquete);
+
+  // Detail cards
   const det = document.getElementById("comp-detalle");
   det.innerHTML = "";
   comps.forEach((uds, i) => {
     const isLast = i === comps.length - 1 && resto > 0;
+    const paqInfo = udsPaquete > 1
+      ? ` · ${Math.floor(uds / udsPaquete)} paq.${(uds % udsPaquete) ? ` + ${uds % udsPaquete}` : ""}`
+      : "";
     const d = document.createElement("div");
     d.className = "comp-card" + (isLast ? " last" : "");
     d.innerHTML = `
       <span class="comp-num">Composición ${i + 1}${isLast ? " ★" : ""}</span>
-      <span class="comp-uds">${uds} uds</span>
+      <span class="comp-uds">${uds} uds${paqInfo}</span>
       <span class="comp-kg">${fmtNum(uds * pesoUnit)} kg</span>`;
     det.appendChild(d);
   });
 
-  ultimoComp = { fmt, lon, total, cargado, pendiente, pesoUnit, pesoComp, nTotal, udsPorComp, resto, comps };
+  ultimoComp = { fmt, lon, total, cargado, pendiente, pesoUnit, pesoComp, nTotal, udsPorComp, resto, comps, udsPaquete, paquetesPorComp };
   document.getElementById("comp-results").classList.add("show");
   document.getElementById("btnCopyComp").textContent = "Copiar resumen al portapapeles";
 }
 
 function copiarComp() {
   if (!ultimoComp) return;
-  const { fmt, lon, total, cargado, pendiente, pesoUnit, nTotal, udsPorComp, comps } = ultimoComp;
+  const { fmt, lon, total, cargado, pendiente, pesoUnit, nTotal, comps, udsPaquete, paquetesPorComp } = ultimoComp;
   let txt = `=== Planificación de Composiciones ===\n`;
-  txt += `Formato: ${fmt}  ·  Longitud: ${lon} m\n`;
-  txt += `Material a cargar: ${total} uds  ·  Cargado: ${cargado} uds  ·  Pendiente: ${pendiente} uds\n\n`;
+  txt += `Formato: ${fmt}  ·  Longitud: ${lon} m`;
+  if (udsPaquete > 1) txt += `  ·  Paquetes de ${udsPaquete} uds`;
+  txt += `\n`;
+  txt += `Material a cargar: ${total} uds  ·  Cargado: ${cargado} uds  ·  Pendiente: ${pendiente} uds\n`;
+  if (udsPaquete > 1) txt += `Capacidad por composición: ${paquetesPorComp} paquetes (${paquetesPorComp * udsPaquete} uds)\n`;
+  txt += `\n`;
   txt += `Composiciones necesarias: ${nTotal}\n\n`;
   comps.forEach((u, i) => {
-    txt += `Composición ${i + 1}: ${u} uds  (${fmtNum(u * pesoUnit)} kg)\n`;
+    const paqInfo = udsPaquete > 1
+      ? ` [${Math.floor(u / udsPaquete)} paq.${(u % udsPaquete) ? ` + ${u % udsPaquete}` : ""}]`
+      : "";
+    txt += `Composición ${i + 1}: ${u} uds${paqInfo}  (${fmtNum(u * pesoUnit)} kg)\n`;
   });
 
   navigator.clipboard.writeText(txt).then(() => {
